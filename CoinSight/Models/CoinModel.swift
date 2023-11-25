@@ -5,7 +5,6 @@
 //  Created by SinaVN on 8/19/1402 AP.
 //
 
-import Foundation
 
 // CoinGecko API info
 /*

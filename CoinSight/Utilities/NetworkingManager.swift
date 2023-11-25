@@ -21,12 +21,14 @@ class NetworkingManager {
         }
         
     }
+    
     static func download (url:URL)->AnyPublisher<Data, any Error> {
         URLSession.shared.dataTaskPublisher(for: url)
              .subscribe(on: DispatchQueue.global(qos: .default))
              .tryMap({try handleURLResponse(output: $0, url: url)})
              .receive(on: DispatchQueue.main)
              .eraseToAnyPublisher()
+             
     }
     static func handleURLResponse (output: URLSession.DataTaskPublisher.Output , url :URL) throws -> Data{
         guard let response = output.response as? HTTPURLResponse,
