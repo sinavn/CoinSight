@@ -9,30 +9,49 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject private var vm : HomeViewModel
-    @State private var showPortfolio :Bool = false
+    @State private var showPortfolio :Bool = false // animate to right
+    @State private var showPortfolioView : Bool = false // new sheet
     
     var body: some View {
         ZStack{
 //            background layer
             Color.theme.background
                 .ignoresSafeArea()
+                .sheet(isPresented: $showPortfolioView) {
+                    PortfolioView()
+                        .environmentObject(vm)
+                }
 //            content layer
+            
             VStack {
+                
                 homeHeader
                 
-                columnTitles
                 
-                if !showPortfolio {
-                   allCoinList
-                    .transition(.move(edge: .leading))
+                if vm.isLoading{
+                    ProgressView()
+                }else{
+                    
+                    HomeStatsView(showPortfolio: $showPortfolio)
+                    
+                    SearchBarView(textFieldText: $vm.searchText)
+                    
+                    columnTitles
+                    
+                    if !showPortfolio {
+                       allCoinList
+                        .transition(.move(edge: .leading))
+                    }
+                    if showPortfolio {
+                        portfolioCoinList
+                            .transition(.move(edge: .trailing))
+                    }
+                 
+                    
+                    
                 }
-                if showPortfolio {
-                    portfolioCoinList
-                        .transition(.move(edge: .trailing))
-                }
-             
-                
                 Spacer(minLength: 0)
+                
             }
         }
     }
@@ -49,13 +68,21 @@ struct HomeView_Previews: PreviewProvider {
         .environmentObject(dev.homeVM)
     }
 }
-//MARK: - home header
+
 
 extension HomeView{
+    
+    //MARK: - home header
+    
     private var homeHeader :some View{
         
         HStack {
             CircleButtonView(showPortfolio: $showPortfolio, iconName: showPortfolio ? "plus" :"info")
+                .onTapGesture {
+                    if showPortfolio{
+                        showPortfolioView.toggle()
+                    }
+                }
             Spacer()
             Text(showPortfolio ? "Portfolio" : "Live Prices")
                 .font(.headline)
@@ -66,7 +93,7 @@ extension HomeView{
             CircleButtonView(showPortfolio: .constant(true), iconName: "chevron.right")
                 .rotationEffect(Angle(degrees: showPortfolio ? 180 : 0))
                 .onTapGesture {
-                    withAnimation(.spring()){
+                    withAnimation(.linear){
                         showPortfolio.toggle()
                     }
                 }
@@ -74,6 +101,8 @@ extension HomeView{
         .padding(.horizontal)
     }
     
+    //MARK: - all coins list
+
     private var allCoinList : some View {
         List {
             ForEach(vm.allCoins) { coin in
@@ -84,15 +113,24 @@ extension HomeView{
         .listStyle(.plain)
     }
     
+    //MARK: - portfolio coins list
+   
     private var portfolioCoinList : some View {
         List {
             ForEach(vm.portfolioCoins) { coin in
                 CoinRowView(coin: coin, showHoldingColumns: true)
                     .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+            }.onDelete { index in
+                let coin = vm.portfolioCoins[index.first ?? 0]
+                vm.updatePortfolio(coin: coin, amount: 0.0)
             }
         }
+        
         .listStyle(.plain)
     }
+    
+    //MARK: - column title
+ 
     private var columnTitles : some View {
         HStack{
             Text("coin")

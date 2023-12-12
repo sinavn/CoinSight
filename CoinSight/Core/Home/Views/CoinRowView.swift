@@ -15,7 +15,8 @@ struct CoinRowView: View {
     var body: some View {
         HStack(spacing: 0){
            leftColumn
-            Spacer()
+            
+            Spacer(minLength: 1)
             
             if showHoldingColumns{
              centerColumn
@@ -46,10 +47,22 @@ extension CoinRowView {
             CoinImageView(coin: coin)
                 .frame(width: 30,height: 30)
             Text("\(coin.symbol)")
-                .padding(.leading,6)
+                .padding(.horizontal,6)
                 .foregroundColor(Color.theme.accent)
+                .lineLimit(1)
+            Text("\(coin.name)")
+                .frame(width: 60 , alignment: .leading)
+                .lineLimit(3)
+                .minimumScaleFactor(0.7)
+                .font(.caption)
+                .foregroundColor(Color.theme.secondary)
+
         }
+        .scaledToFit()
+        .fixedSize()
+        
     }
+        
     //MARK: - center column
     
     private var centerColumn : some View {
@@ -61,6 +74,8 @@ extension CoinRowView {
         }
         .foregroundColor(Color.theme.accent)
     }
+        
+
     //MARK: - right column
     
     private var rightColumn :some View{
@@ -73,7 +88,7 @@ extension CoinRowView {
                                  Color.theme.green :
                                     Color.theme.red)
         }
-        .frame(width: UIScreen.main.bounds.width / 3.5 ,alignment: .trailing)
 
+        .frame(width: UIScreen.main.bounds.width / 4 ,alignment: .trailing)
     }
 }
