@@ -21,6 +21,21 @@ extension Double {
         formatter.maximumFractionDigits = 6
         return formatter
     }
+    
+    /// converts a Double to currency with 2 decimal places
+    ///```
+    /// Converts 1234.56 to $1,234.56
+    /// Converts 0.123456 to $0.12
+    ///```
+    private var currencyFormatter2:NumberFormatter{
+        let formatter = NumberFormatter()
+        formatter.usesGroupingSeparator = true
+        formatter.numberStyle = .currency
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }
+
     /// converts a Double to currency as string with 2-6 decimal places
     ///```
     /// Converts 1234.56 to "$1,234.56"
@@ -30,6 +45,17 @@ extension Double {
         let number = NSNumber(value: self)
         return currencyFormatter6.string(from: number) ?? "$0.00"
     }
+    
+    /// converts a Double to currency as string with 2 decimal places
+    ///```
+    /// Converts 1234.56 to "$1,234.56"
+    /// Converts 0.123456 to "$0.12"
+    ///```
+    func asCurrencyWith2Decimals () -> String {
+        let number = NSNumber(value: self)
+        return currencyFormatter2.string(from: number) ?? "$0.00"
+    }
+    
     /// converts a Double to String representation
     ///```
     ///

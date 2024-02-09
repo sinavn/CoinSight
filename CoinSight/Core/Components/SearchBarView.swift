@@ -14,6 +14,7 @@ struct SearchBarView: View {
            Image(systemName: "magnifyingglass")
                 .foregroundColor(
                     textFieldText.isEmpty ? Color.theme.secondary : Color.theme.accent)
+            
             TextField("Search by name or symbol...", text: $textFieldText)
                 .foregroundColor(Color.theme.accent)
                 .autocorrectionDisabled()
@@ -21,7 +22,7 @@ struct SearchBarView: View {
                     .foregroundColor(Color.theme.accent)
                     .opacity(textFieldText.isEmpty ? 0.0 : 1.0)
                          ,alignment: .trailing)
-                .onTapGesture {
+                    .onTapGesture {
                     UIApplication.shared.endEditing()
 
                     withAnimation() {

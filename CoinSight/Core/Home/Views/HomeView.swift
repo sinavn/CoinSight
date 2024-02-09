@@ -40,7 +40,7 @@ struct HomeView: View {
                     
                     if !showPortfolio {
                        allCoinList
-                        .transition(.move(edge: .leading))
+                            .transition(.move(edge: .leading))
                     }
                     if showPortfolio {
                         portfolioCoinList
@@ -93,7 +93,7 @@ extension HomeView{
             CircleButtonView(showPortfolio: .constant(true), iconName: "chevron.right")
                 .rotationEffect(Angle(degrees: showPortfolio ? 180 : 0))
                 .onTapGesture {
-                    withAnimation(.linear){
+                    withAnimation(.smooth){
                         showPortfolio.toggle()
                     }
                 }
@@ -114,33 +114,84 @@ extension HomeView{
     }
     
     //MARK: - portfolio coins list
-   
-    private var portfolioCoinList : some View {
-        List {
-            ForEach(vm.portfolioCoins) { coin in
-                CoinRowView(coin: coin, showHoldingColumns: true)
-                    .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
-            }.onDelete { index in
-                let coin = vm.portfolioCoins[index.first ?? 0]
-                vm.updatePortfolio(coin: coin, amount: 0.0)
+    private var portfolioCoinList: some View {
+        NavigationView {
+            List {
+                ForEach(vm.portfolioCoins) { coin in
+                    CoinRowView(coin: coin, showHoldingColumns: true)
+                        .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                }
+                .onDelete { indexSet in
+                    if let index = indexSet.first {
+                        let coin = vm.portfolioCoins[index]
+                        vm.updatePortfolio(coin: coin, amount: 0.0)
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                   EditButton()
+                        .foregroundColor(Color.theme.accent)
+                }
             }
         }
-        
+        .font(.footnote)
+        .background(Color.theme.background)
         .listStyle(.plain)
     }
-    
     //MARK: - column title
  
     private var columnTitles : some View {
         HStack{
-            Text("coin")
+            HStack{
+                Text("coin")
+                Image(systemName: "chevron.down")
+                    .opacity(vm.sortOption == .rank || vm.sortOption == .rankReversed ? 1.0 : 0.0)
+                    .rotationEffect(Angle(degrees: vm.sortOption == .rank ? 0 : 180))
+            }
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    vm.sortOption = vm.sortOption == .rank ? .rankReversed:.rank
+                }
+            }
+            
             Spacer()
             if showPortfolio{
-            Text("Holdings")
+                HStack{
+                    Text("Holdings")
+                    Image(systemName: "chevron.down")
+                        .opacity(vm.sortOption == .holdings || vm.sortOption == .holdingsReversed ? 1.0 : 0.0)
+                        .rotationEffect(Angle(degrees: vm.sortOption == .holdings ? 0 : 180))
+                }
+                .onTapGesture {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        vm.sortOption = vm.sortOption == .holdings ? .holdingsReversed:.holdings
+                    }
+                }
+            
             }
-            Text("Price")
-                .frame(width: UIScreen.main.bounds.width / 3.5 ,alignment: .trailing)
+            HStack{
+                Text("Price")
+                Image(systemName: "chevron.down")
+                    .opacity(vm.sortOption == .price || vm.sortOption == .priceReversed ? 1.0 : 0.0)
+                    .rotationEffect(Angle(degrees: vm.sortOption == .price ? 0 : 180))
 
+            }
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    vm.sortOption = vm.sortOption == .price ? .priceReversed:.price
+                }
+            }
+                .frame(width: UIScreen.main.bounds.width / 3.5 ,alignment: .trailing)
+            
+            Button(action: {
+                withAnimation(.smooth(duration: 2.0)) {
+                    vm.reloadData()
+                }
+            }, label: {
+                Image(systemName: "goforward")
+                    .rotationEffect(Angle(degrees: vm.isReloading ? 360 : 0))
+            })
         }
         .font(.caption)
         .foregroundColor(Color.theme.secondary)

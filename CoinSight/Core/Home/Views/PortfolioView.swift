@@ -48,8 +48,8 @@ struct PortfolioView: View {
                    trailingNavBarButton
                 }
             })
-            .onChange(of: vm.searchText) { value in
-                if value == "" {
+            .onChange(of: vm.searchText) { changedValue in
+                if changedValue == "" {
                     deSelectCoin()
                 }
             }
@@ -73,13 +73,13 @@ extension PortfolioView {
     private var coinLogoList : some View {
         ScrollView(.horizontal,showsIndicators: false){
             LazyHStack(spacing:10){
-                ForEach(vm.allCoins) { coin in
+                ForEach(vm.searchText.isEmpty ? vm.portfolioCoins : vm.allCoins) { coin in
                     CoinLogoView(coin: coin)
                         .frame(width: 75)
                         .padding(4)
                         .onTapGesture {
                             withAnimation(.easeOut) {
-                                selectedCoin = coin
+                                updateSelectedCoin(coin: coin)
                             }
                         }
                         .background(
@@ -93,6 +93,17 @@ extension PortfolioView {
             .padding(.leading)
         }
     }
+    private func updateSelectedCoin (coin:CoinModel){
+        selectedCoin = coin
+        if let portfolioCoin = vm.portfolioCoins.first(where: { $0.id == coin.id}) {
+            quantityText = portfolioCoin.currentHoldings?.asNumberString() ?? ""
+        } else{
+            quantityText = ""
+        }
+        
+        
+    }
+    
     private func getCurrentValue ()->Double{
         if let quantity = Double(quantityText){
             return quantity * (selectedCoin?.currentPrice ?? 0)

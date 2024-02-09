@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C1F25882B6E854600207605 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C1F25872B6E854600207605 /* Assets.xcassets */; };
+		6C1F258A2B75721600207605 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F25892B75721600207605 /* HapticManager.swift */; };
 		6E0255AC2B13D3500087B599 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0255AB2B13D34F0087B599 /* SearchBarView.swift */; };
 		6E133EE92AFE6A600066A2C8 /* CoinSightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E133EE82AFE6A600066A2C8 /* CoinSightApp.swift */; };
 		6E133EEB2AFE6A600066A2C8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E133EEA2AFE6A600066A2C8 /* ContentView.swift */; };
 		6E133EF02AFE6A630066A2C8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E133EEF2AFE6A630066A2C8 /* Preview Assets.xcassets */; };
-		6E133EF72AFE6EC10066A2C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E133EF62AFE6EC00066A2C8 /* Assets.xcassets */; };
 		6E133EFA2AFE6F2C0066A2C8 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E133EF92AFE6F2C0066A2C8 /* Color.swift */; };
 		6E133F002AFE7D8B0066A2C8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E133EFF2AFE7D8B0066A2C8 /* HomeView.swift */; };
 		6E133F042AFE82070066A2C8 /* CircleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E133F032AFE82070066A2C8 /* CircleButtonView.swift */; };
@@ -40,12 +41,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C1F25872B6E854600207605 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6C1F25892B75721600207605 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		6E0255AB2B13D34F0087B599 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		6E133EE52AFE6A600066A2C8 /* CoinSight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinSight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E133EE82AFE6A600066A2C8 /* CoinSightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinSightApp.swift; sourceTree = "<group>"; };
 		6E133EEA2AFE6A600066A2C8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6E133EEF2AFE6A630066A2C8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		6E133EF62AFE6EC00066A2C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../Resources/Assets.xcassets; sourceTree = "<group>"; };
 		6E133EF92AFE6F2C0066A2C8 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		6E133EFF2AFE7D8B0066A2C8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		6E133F032AFE82070066A2C8 /* CircleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonView.swift; sourceTree = "<group>"; };
@@ -110,7 +112,7 @@
 				6E133F052AFEAE7C0066A2C8 /* Models */,
 				6E133EFB2AFE7BB10066A2C8 /* Core */,
 				6E133EEA2AFE6A600066A2C8 /* ContentView.swift */,
-				6E133EF62AFE6EC00066A2C8 /* Assets.xcassets */,
+				6C1F25872B6E854600207605 /* Assets.xcassets */,
 				6E133EEE2AFE6A630066A2C8 /* Preview Content */,
 			);
 			path = CoinSight;
@@ -208,6 +210,7 @@
 			children = (
 				6E2342D72B07F13900A1AF5E /* NetworkingManager.swift */,
 				6E4E3A9F2B127247008A7621 /* LocalFileManager.swift */,
+				6C1F25892B75721600207605 /* HapticManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -261,7 +264,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					6E133EE42AFE6A600066A2C8 = {
 						CreatedOnToolsVersion = 14.1;
@@ -292,7 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E133EF02AFE6A630066A2C8 /* Preview Assets.xcassets in Resources */,
-				6E133EF72AFE6EC10066A2C8 /* Assets.xcassets in Resources */,
+				6C1F25882B6E854600207605 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +330,7 @@
 				6EB6BE552B00001400D29422 /* Double.swift in Sources */,
 				6E2342D82B07F13900A1AF5E /* NetworkingManager.swift in Sources */,
 				6E133EFA2AFE6F2C0066A2C8 /* Color.swift in Sources */,
+				6C1F258A2B75721600207605 /* HapticManager.swift in Sources */,
 				6EE6B42B2B162CA8006D3AE6 /* StatsView.swift in Sources */,
 				6E365A292B08C15400F40B08 /* CoinImageService.swift in Sources */,
 				6E0255AC2B13D3500087B599 /* SearchBarView.swift in Sources */,
@@ -373,6 +377,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -433,6 +438,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
